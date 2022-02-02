@@ -1,34 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:infinity_list_app/services/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinity_list_app/blocs/comment_bloc.dart';
+import 'package:infinity_list_app/models/comment.dart';
 
 class InfinityList extends StatelessWidget {
   const InfinityList({Key? key}) : super(key: key);
 
+  Widget renderList() {
+    return BlocBuilder<CommentBloc, List<Comment>>(
+        builder: (context, listComment) {
+      return Expanded(
+          child: ListView.builder(
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: Text('${index + 1}'),
+            title: Text(
+              listComment[index].email,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            isThreeLine: true,
+            subtitle: Text(listComment[index].body),
+          );
+        },
+        itemCount: listComment.length,
+      ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    getListCommentFromAPI(1, 20);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
       ),
       body: Column(
         children: [
-          Text('List'),
-          Expanded(
-              child: ListView.builder(
-            itemBuilder: (context, index) {
-              return const ListTile(
-                leading: Text('asd'),
-                title: Text(
-                  'Hehe',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                isThreeLine: true,
-                subtitle: Text('sub'),
-              );
-            },
-            itemCount: 20,
-          ))
+          TextButton(
+              onPressed: () {
+                context.read<CommentBloc>().setListComment(1);
+              },
+              child: const Text('Press')),
+          renderList()
         ],
       ),
     );

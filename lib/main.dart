@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinity_list_app/blocs/comment_bloc.dart';
 import 'package:infinity_list_app/infinity_list.dart';
 
 void main() {
@@ -11,10 +13,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: SafeArea(
-        child: InfinityList(),
+      home: BlocProvider(
+        create: (_) => CommentBloc(),
+        child: const SafeArea(
+          child: InfinityList(),
+        ),
       ),
     );
   }
