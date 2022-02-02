@@ -7,6 +7,7 @@ class CommentBloc extends Cubit<List<Comment>> {
   static const int pageSize = 20;
 
   void setListComment(page) async {
+    print(page);
     List<Comment> listComment = await getListCommentFromAPI(page, pageSize);
     emit(List.from(state)..addAll(listComment));
     print(state);

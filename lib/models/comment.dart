@@ -11,4 +11,9 @@ class Comment {
       required this.body,
       required this.email,
       required this.name});
+
+  @override
+  String toString() {
+    return '{"postId": "$postId", "id": "$id", "body": "$body", "email":"$email", "name": "$name˝"}';
+  }
 }

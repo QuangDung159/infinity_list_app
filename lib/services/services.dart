@@ -4,9 +4,10 @@ import 'dart:io';
 import 'package:infinity_list_app/models/comment.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<Comment>> getListCommentFromAPI(int page, int size) async {
+Future<List<Comment>> getListCommentFromAPI(int start, int size) async {
   final url = Uri.parse(
-      'https://jsonplaceholder.typicode.com/comments?_start=$page&_limit=$size');
+      'https://jsonplaceholder.typicode.com/comments?_start=$start&_limit=$size');
+      print(url);
   try {
     final res = await http.get(url);
     stdout.writeln(res);
